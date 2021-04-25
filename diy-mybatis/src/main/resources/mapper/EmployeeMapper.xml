@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--注意：
+（1）每一个mapper.xml文件都有一个命名空间，该命名空间表示：该mapper.xml文件和哪个接口绑定起来。
+（2）该接口是用来操作DB的。
+-->
+
+<mapper namespace="com.wind.dao.EmployeeDao">
+
+    <select id="queryEmployeeById" resultType="com.wind.entity.EmployeeEntity">
+        select *
+        from TBL_Employee
+        where id = #{id}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wind</groupId>
+    <artifactId>diy-mybatis</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <!--导入使用MyBatis时相关的依赖=start-->
+    <dependencies>
+        <!--MyBatis依赖-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+
+        <!--MySQL连接依赖-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
+        </dependency>
+
+        <!--第三方缓存依赖-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-ehcache</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.6.11</version>
+        </dependency>
+
+        <!--lombok插件依赖-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
+    </dependencies>
+    <!--导入使用MyBatis时相关的依赖=end-->
+
+
+    <!--编译之后的文件中少了mapper.xml，这个和maven有关，maven编译src/java代码的时候，默认只会对java文件进行编译然后放在target/classes目录，需要在pom.xml中加入下面配置-->
+    <!--如果不添加此节点，mapper.xml文件、config.properties文件、config.spring文件都不会被加载到target的classes中去，也就不能被使用，也就会报错-->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>
