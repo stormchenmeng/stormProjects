@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wind.dao.StudentDao">
+
+    <resultMap id="studentMap" type="com.wind.entity.StudentEntity">
+        <result column="Id" property="id"/>
+        <result column="Name" property="name"/>
+        <result column="ClassId" property="classId"/>
+        <result column="Status" property="status"/>
+        <result column="AddTime" property="addTime"/>
+        <result column="UpdateTime" property="updateTime"/>
+    </resultMap>
+
+    <sql id="sql_select">
+        select Id, Name, ClassId, Status, AddTime, UpdateTime from RUN_Student
+    </sql>
+
+    <insert id="insertStudent" parameterType="studentEntity" keyProperty="studentEntity.id" useGeneratedKeys="true">
+        insert into RUN_Student
+        (
+          Id,
+          Name,
+          ClassId,
+          Status
+         )
+         values
+         (
+          #{studentEntity.id},
+          #{studentEntity.name},
+          #{studentEntity.classId},
+          1
+         )
+    </insert>
+
+    <update id="deleteStudent" parameterType="int" useGeneratedKeys="true">
+        update RUN_Student set status = -1 where id = #{id}
+    </update>
+
+    <update id="updateStudent" parameterType="studentEntity" useGeneratedKeys="true">
+        update RUN_Student set
+        Name = #{studentEntity.name},
+        ClassId = #{studentEntity.classId},
+        Status = 1
+        where id = #{studentEntity.id}
+    </update>
+
+    <select id="findStudentById" parameterType="int" resultMap="studentMap">
+        <include refid="sql_select"/>
+        where id = #{id} and status = 1
+    </select>
+
+    <select id="findAllValidStudent" resultMap="studentMap">
+        <include refid="sql_select"/>
+        where status = 1
+    </select>
+
+</mapper>

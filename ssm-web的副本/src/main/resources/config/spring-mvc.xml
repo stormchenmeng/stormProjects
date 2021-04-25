@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--SpringMVC的配置文件，用来声名Controller和其他web相关的对象-->
+
+    <!--配置组件扫描器-->
+    <context:component-scan base-package="com.wind.controller"/>
+
+    <!--视图解析器：添加前缀和后缀。
+    SpringMVC框架为了避免对于请求资源路径与扩展名上的冗余，在视图解析器 InternalResouceViewResolver
+    中引入了请求的前辍与后辍。而 ModelAndView 中只需给出要跳转页面的文件名即可，对于具体的文件路径与文件扩展名，
+    视图解析器会自动完成拼接。-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--视图文件的路径-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--视图文件的扩展名-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--注册注解驱动。
+    （1）响应ajax请求，返回json字符串。
+    （2）解决静态资源访问问题。-->
+    <mvc:annotation-driven/>
+
+    <!--加载静态资源图片啊，jQuery文件啊等等-->
+    <mvc:resources location="js/" mapping="/js/**"/>
+    <mvc:resources location="images/" mapping="/images/**"/>
+
+</beans>
