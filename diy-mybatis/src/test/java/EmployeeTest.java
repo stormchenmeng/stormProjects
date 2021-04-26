@@ -40,6 +40,7 @@ public class EmployeeTest {
 
         //提交事务
         sqlSession.commit();
+
         //关闭资源
         sqlSession.close();
     }
