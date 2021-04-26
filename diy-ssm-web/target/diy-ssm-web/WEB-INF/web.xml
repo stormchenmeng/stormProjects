@@ -1,0 +1,85 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <!--1.加载Spring配置文件，即启动Spring-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:config/spring.xml</param-value>
+    </context-param>
+
+    <!--2.防止Spring内存溢出监听器-->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+    <!--3.加载spring容器监听器-->
+    <!--Spring容器启动时，会被这个监听器监听到，然后它会读取contextConfigLocation所配置的xml文件，
+    之后再去创建xml文件中的bean实例，最后放进Spring容器中去管理-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--4.加载SpringMVC配置文件，创建SpringMVC中央控制器-->
+    <servlet>
+        <servlet-name>MVC-DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--加载SpringMVC时需要的配置文件-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/springmvc.xml</param-value>
+        </init-param>
+        <!--标记Spring容器在启动的时候就加载这个Servlet中央控制器-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MVC-DispatcherServlet</servlet-name>
+        <!--为中央控制器配置拦截路径：默认拦截所有的HTTP请求-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--5.使用自动的过滤器来解决工程编码时出现乱码的问题-->
+    <!--    <filter>-->
+    <!--        <filter-name>encodingFilter</filter-name>-->
+    <!--        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+    <!--        <init-param>-->
+    <!--            <param-name>encoding</param-name>-->
+    <!--            <param-value>UTF-8</param-value>-->
+    <!--        </init-param>-->
+    <!--        <init-param>-->
+    <!--            <param-name>forceEncoding</param-name>-->
+    <!--            <param-value>true</param-value>-->
+    <!--        </init-param>-->
+    <!--    </filter>-->
+    <!--    <filter-mapping>-->
+    <!--        <filter-name>encodingFilter</filter-name>-->
+    <!--        <url-pattern>/*</url-pattern>-->
+    <!--    </filter-mapping>-->
+
+    <!--6.配置加载静态资源的功能
+    (MVC-DispatcherServlet会拦截所有资源，所以对这些静态资源单独拿出来由默认的servlet去处理)-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+
+</web-app>

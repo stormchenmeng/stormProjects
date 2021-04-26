@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--使用mybatis操作数据库，那么当然需要配置数据库相关信息，这个需要在mybatis的全局配置文件中进行配置。
+    mybatis提供一个全局配置的xml文件，可以在这个配置文件中对mybatis进行配置，如事务的支持，数据源的配置等等，
+    这个属于配置文件，我们一般放在main/resources中，也就是此文件-->
+
+    <!--在mybatis中一般我们将一个表的所有sql操作写在一个mapper.xml中，一般命名为XXXMapper.xml格式。-->
+    <!--（1）一般情况下，我们会创建一个和Mapper.xml中namespace同名的Mapper接口，Mapper接口会和Mapper.xml文件进行绑定；-->
+    <!--（2）mybatis加载mapper.xml的时候，会去查找namespace对应的Mapper接口，然后进行注册，我们可以通过Mapper接口的方式去访问Mapper.xml中的具体操作；-->
+    <!--（3）Mapper.xml和Mapper接口配合的方式是比较常见的做法，也是强烈建议大家使用的。-->
+
+    <!--另：很多的配置信息直接写在了spring.xml配置文件中了，所以这里基本上没有内容。-->
+
+    <settings>
+        <!-- 打印SQL-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--别名的用法：别名使用时是不区分大小写的：org.apache.ibatis.type.TypeAliasRegistry-->
+    <!--使用别名之前需要先在mybatis中注册别名，我们先说通过mybatis全局配置文件中注册别名，通过mybatis配置文件注册别名有3种方式。-->
+    <!--方式1：使用typeAlias元素进行注册-->
+    <!--方式2：通过package元素批量注册-->
+    <!--方式3：package结合@Alias批量注册并指定别名-->
+    <typeAliases>
+        <!-- 指定包名，MyBatis会在包名下搜JavaBean并将别名注册到mybatis中：实体类的别名，默认是首字母小写的类名作为对象名-->
+        <package name="com.wind.entity"/>
+    </typeAliases>
+
+</configuration>

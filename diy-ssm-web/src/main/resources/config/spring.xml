@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+
+    <context:component-scan base-package="com.wind.*"/>
+
+    <!--Mybatis和Spring的整合：由Spring来管理MyBatis组件-->
+
+    <!--1.获取数据源dataSource：常见的数据源：c3p0，dbcp，druid等-->
+    <!--1.1 获取数据库配置文件-->
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
+    <!--1.2 根据数据库配置文件获取数据源，并命名为唯一的beanID=dataSource-->
+    <!--比如：c3p0数据库连接池：<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+    <!--比如：阿里巴巴提供的的Druid数据库连接池：用来创建一个数据库连接池类型的数据源，可以实现数据库连接共用，减少连接重复创建销毁的时间-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--配置数据库连接池的初始化大小、最小、最大-->
+        <property name="initialSize" value="5"/>
+        <property name="minIdle" value="5"/>
+        <property name="maxActive" value="20"/>
+        <!--配置获取连接等待超时的时间，单位是毫秒-->
+        <property name="maxWait" value="10000"/>
+        <!--配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒-->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!--配置一个连接在池中最小生存的时间，单位是毫秒-->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+    </bean>
+
+
+    <!--2.创建sqlSessionFactory对象-->
+    <!--MyBatis处理mysql数据的时候，需要一个SqlSession对象，这个对象怎么来呢？是通过sqlSessionFactory工厂来创建的-->
+    <bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入属性：数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--注入属性：指定MyBatis的全局配置文件-->
+        <property name="configLocation" value="classpath:config/mybatis.xml"/>
+        <!--注入属性：指定Mybatis映射文件，也即DAO层接口对应的xml文件，自动扫描xxxMapper.xml文件，*.xml会匹配所有xml文件-->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+    </bean>
+
+
+    <!--3.配置Spring需要扫描的DAO层接口-->
+    <!--扫描指定包中所有的DAO层接口，把这些接口作为Mapper接口进行注册到Spring中，
+    扫描到的类型只要是接口就会被注册，所以指定的包中通常只放Mapper接口，避免存放一些不相干的类或者接口-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.wind.dao"/>
+    </bean>
+
+</beans>

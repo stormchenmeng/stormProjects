@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web2" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web3" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web4" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web5" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web6" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web的副本" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-web/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-web2/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-web3/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-web4/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-web5/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-web6/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

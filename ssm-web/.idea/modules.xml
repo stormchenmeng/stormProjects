@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ssm-web.iml" filepath="$PROJECT_DIR$/ssm-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssm-web/ssm-web.iml" filepath="$PROJECT_DIR$/ssm-web/ssm-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssm-web2/ssm-web2.iml" filepath="$PROJECT_DIR$/ssm-web2/ssm-web2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssm-web3/ssm-web3.iml" filepath="$PROJECT_DIR$/ssm-web3/ssm-web3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssm-web4/ssm-web4.iml" filepath="$PROJECT_DIR$/ssm-web4/ssm-web4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssm-web5/ssm-web5.iml" filepath="$PROJECT_DIR$/ssm-web5/ssm-web5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssm-web6/ssm-web6.iml" filepath="$PROJECT_DIR$/ssm-web6/ssm-web6.iml" />
     </modules>
   </component>
 </project>

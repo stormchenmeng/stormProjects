@@ -7,10 +7,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ssm-web" />
+        <module name="ssm-web5" />
+        <module name="ssm-web4" />
+        <module name="ssm-web6" />
+        <module name="ssm-web3" />
+        <module name="ssm-web2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ssm-web" target="1.8" />
+      <module name="ssm-web (1)" target="1.8" />
+      <module name="ssm-web2" target="1.8" />
+      <module name="ssm-web3" target="1.8" />
+      <module name="ssm-web4" target="1.8" />
+      <module name="ssm-web5" target="1.8" />
+      <module name="ssm-web6" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
