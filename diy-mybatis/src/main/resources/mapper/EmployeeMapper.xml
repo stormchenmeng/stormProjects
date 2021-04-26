@@ -10,11 +10,39 @@
 
 <mapper namespace="com.wind.dao.EmployeeDao">
 
+    <insert id="insertEmployee" parameterType="employeeEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into TBL_Employee(Name, Gender, Email)
+        values (#{employeeEntity.name},
+                #{employeeEntity.gender},
+                #{employeeEntity.email})
+    </insert>
+
+    <delete id="deleteEmployee" parameterType="int">
+        delete
+        from TBL_Employee
+        where id = #{id}
+    </delete>
+
+    <update id="updateEmployee">
+        update TBL_Employee
+        <set>
+            <if test="employeeEntity.name != null and employeeEntity.name != '' ">
+                name = #{employeeEntity.name},
+            </if>
+            <if test="employeeEntity.gender != null and employeeEntity.gender!=''">
+                gender = #{employeeEntity.gender},
+            </if>
+            <if test="employeeEntity.email !=null and employeeEntity.email != ''">
+                email = #{employeeEntity.email}
+            </if>
+        </set>
+        where id = #{employeeEntity.id}
+    </update>
+
     <select id="queryEmployeeById" resultType="com.wind.entity.EmployeeEntity">
         select *
         from TBL_Employee
         where id = #{id}
     </select>
-
 
 </mapper>
