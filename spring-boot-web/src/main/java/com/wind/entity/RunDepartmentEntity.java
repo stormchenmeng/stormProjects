@@ -1,6 +1,8 @@
 package com.wind.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +20,9 @@ public class RunDepartmentEntity implements Serializable {
     private Integer id;
     private String name;
     private Integer status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @Id

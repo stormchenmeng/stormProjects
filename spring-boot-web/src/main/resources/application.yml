@@ -1,24 +1,52 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+      enabled: true
+
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/RUNOOB?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: admin0001112
-    url: jdbc:mysql://localhost:3306/RUNOOB?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      test-on-borrow: true
+      test-while-idle: true
+      login-timeout: 30
+    hikari:
+      connection-timeout: 30
 
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    show-sql: true
     database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
   thymeleaf:
     cache: false
     encoding: utf-8
 
 mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   typeAliasesPackage: com.wind.entity
   mapperLocations: classpath:mapper/*.xml
-
-server:
-  port: 8090
-  servlet:
-    context-path: /
