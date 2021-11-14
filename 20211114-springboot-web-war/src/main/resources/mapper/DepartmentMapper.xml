@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wind.springboot.dao.DepartmentDao">
+
+    <resultMap id="DepartmentMap" type="com.wind.springboot.entity.RunDepartmentEntity">
+        <result column="Id" property="id"/>
+        <result column="Name" property="name"/>
+        <result column="Status" property="status"/>
+        <result column="Add_Time" property="addTime"/>
+        <result column="Update_Time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="queryDepartmentWithName" resultType="com.wind.springboot.entity.RunDepartmentEntity">
+        select *
+        from RUN_Department
+        <if test="name != null and !name.isEmpty()">
+            where Name like concat('%', #{name}, '%')
+        </if>
+    </select>
+
+
+</mapper>
