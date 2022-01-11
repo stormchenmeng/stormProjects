@@ -1,5 +1,6 @@
 package com.wind.springboot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wind.springboot.entity.RunDepartmentEntity;
 import com.wind.springboot.entity.RunHttpResponse;
 import com.wind.springboot.service.DepartmentService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -88,6 +91,18 @@ public class DepartmentController {
     public RunHttpResponse queryDepartmentWithName(@RequestParam(value = "name") String name) {
         List<RunDepartmentEntity> entities = departmentService.queryDepartmentWithName(name);
         LOGGER.info("==queryDepartmentWithName success==size={}", entities.size());
+        return RunHttpResponse.success("success", entities);
+    }
+
+    @RequestMapping(value = "/getDepartmentWithName", method = RequestMethod.POST)
+    public RunHttpResponse getDepartmentWithName(@RequestParam(value = "name") String name,
+                                                 HttpServletRequest httpServletRequest,
+                                                 HttpServletResponse httpServletResponse) {
+        List<RunDepartmentEntity> entities = departmentService.queryDepartmentWithName(name);
+        LOGGER.info("==queryDepartmentWithName success==size={}", entities.size());
+        LOGGER.info("==httpServletRequest=={},cookie={}", httpServletRequest.getHeader("Host"), httpServletRequest.getCookies());
+        LOGGER.info("==httpServletRequest=={}", httpServletRequest.getRequestURI());
+        LOGGER.info("==httpServletResponse=={}", httpServletResponse.getStatus());
         return RunHttpResponse.success("success", entities);
     }
 
