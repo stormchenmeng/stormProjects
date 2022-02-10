@@ -13,8 +13,7 @@
 
 
     <select id="queryDepartmentWithName" resultType="com.wind.springboot.entity.RunDepartmentEntity">
-        select *
-        from RUN_Department
+        select * from RUN_Department
         <if test="name != null and !name.isEmpty()">
             where Name like concat('%', #{name}, '%')
         </if>

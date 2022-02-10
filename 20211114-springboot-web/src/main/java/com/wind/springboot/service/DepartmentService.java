@@ -32,7 +32,6 @@ public class DepartmentService {
             return null;
         }
         RunDepartmentEntity entity = departmentRepository.save(departmentEntity);
-        System.out.println(entity);
         return entity;
     }
 
@@ -71,7 +70,6 @@ public class DepartmentService {
      */
     public List<RunDepartmentEntity> findAllDepartments() {
         List<RunDepartmentEntity> departmentEntities = departmentRepository.findAll();
-        System.out.println(departmentEntities.size());
         return departmentEntities;
     }
 
@@ -82,7 +80,6 @@ public class DepartmentService {
 
     public List<RunDepartmentEntity> queryDepartmentWithName(String name) {
         List<RunDepartmentEntity> entities = departmentDao.queryDepartmentWithName(name);
-        System.out.println(entities.size());
         return entities;
     }
 

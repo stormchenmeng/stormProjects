@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /es
+    encoding:
+      charset: UTF-8
+      force: true
+      force-request: true
+      force-response: true
+      enabled: true

@@ -4,6 +4,10 @@ server:
     uri-encoding: UTF-8
   servlet:
     context-path: /myweb
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
 
 spring:
   servlet:

@@ -1,18 +1,13 @@
 package com.wind.springboot.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.wind.springboot.entity.RunDepartmentEntity;
 import com.wind.springboot.entity.RunHttpResponse;
 import com.wind.springboot.service.DepartmentService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,19 +28,16 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
 
-    @RequestMapping(value = "/saveDepartment", method = RequestMethod.GET)
-    public RunHttpResponse saveDepartment(@RequestParam(value = "name") String name) {
-        RunDepartmentEntity departmentEntity = new RunDepartmentEntity();
-        departmentEntity.setName(StringUtils.isNotBlank(name) ? name : "defaultName" + new Date().toString());
-        departmentEntity.setStatus(1);
+    @RequestMapping(value = "/saveDepartment", method = RequestMethod.POST)
+    public RunHttpResponse saveDepartment(@RequestBody RunDepartmentEntity departmentEntity) {
         departmentEntity.setAddTime(new Date());
         departmentEntity.setUpdateTime(new Date());
         RunDepartmentEntity entity = departmentService.saveDepartment(departmentEntity);
         if (entity != null) {
             LOGGER.info("==saveDepartment success==result={}", entity);
-            return RunHttpResponse.success("success", entity);
+            return RunHttpResponse.success("新增成功", entity);
         } else {
-            return RunHttpResponse.failure("error", null);
+            return RunHttpResponse.failure("新增失败，请重试", null);
         }
     }
 
@@ -62,19 +54,24 @@ public class DepartmentController {
     }
 
 
-    @RequestMapping(value = "/updateDepartment", method = RequestMethod.GET)
-    public RunHttpResponse updateDepartment(@RequestParam(value = "id") Integer id) {
-        RunDepartmentEntity entityOld = departmentService.findDepartmentWithId(id);
-        if (entityOld == null) {
-            return RunHttpResponse.failure("error", null);
+    @RequestMapping(value = "/updateDepartment", method = RequestMethod.POST)
+    public RunHttpResponse updateDepartment(@RequestBody RunDepartmentEntity departmentEntity) {
+        if (departmentEntity == null) {
+            return RunHttpResponse.failure("参数错误，请重试", null);
         }
-        entityOld.setName(entityOld.getName() + "-" + id);
+        RunDepartmentEntity entityOld = departmentService.findDepartmentWithId(departmentEntity.getId());
+        if (entityOld == null) {
+            return RunHttpResponse.failure("数据不存在，请重试", null);
+        }
+        entityOld.setName(departmentEntity.getName());
+        entityOld.setUpdateTime(new Date());
+        entityOld.setStatus(departmentEntity.getStatus());
         RunDepartmentEntity result = departmentService.updateDepartment(entityOld);
         if (result != null) {
             LOGGER.info("==updateDepartment success==result={}", result);
-            return RunHttpResponse.success("success", result);
+            return RunHttpResponse.success("修改成功", result);
         } else {
-            return RunHttpResponse.failure("error", null);
+            return RunHttpResponse.failure("修改失败，请重试", null);
         }
     }
 
