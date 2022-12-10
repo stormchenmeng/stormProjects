@@ -19,7 +19,7 @@ public class TaskDemo {
     /**
      * 每隔2秒钟执行一次该定时任务：输出当前时间
      */
-    @Scheduled(cron = "*/2 * * * * *")
+    //@Scheduled(cron = "*/2 * * * * *")
     public void taskForTime() {
         System.out.println("==当前时间==" + new Date());
     }
